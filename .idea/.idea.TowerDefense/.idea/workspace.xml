@@ -14,7 +14,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/AbstractFactory/EnemyFactory.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/MonsterData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MonsterFactory/AbstractEnemyFactory.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MonsterFactory/Interfaces/IMortal.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MonsterFactory/MonsterFactory.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="222lK6KuV9ib5Aunnv65yvemKsG" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -31,6 +34,7 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="advanced.settings" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
@@ -65,6 +69,8 @@
       <updated>1639043543590</updated>
       <workItem from="1639043547440" duration="3879000" />
       <workItem from="1639645375011" duration="5513000" />
+      <workItem from="1639836546514" duration="8701000" />
+      <workItem from="1639926341970" duration="8526000" />
     </task>
     <servers />
   </component>
