@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class MonsterFactory : AbstractEnemyFactory
 {
+    public bool debugOn;
     public MonsterFactory()
     {
     }
     
     public override GameObject CreateEnemy()
     {
+        if(debugOn) Debug.Log("creating monster in factory");
         var enemyObject = Resources.Load<GameObject>("Enemies/Enemy1");
+        if (debugOn) Debug.Log("returning monster from factory");
         return enemyObject;
     }
 }

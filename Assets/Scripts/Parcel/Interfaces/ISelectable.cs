@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public interface IMortal
+public interface ISelectable
 {
-    public void Death();
+    public void Selected();
+    public void HoverOver();
 }

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30cf5b1f1b8498549a22678c8b376439, type: 3}
   m_Name: MonsterDataScriptable
   m_EditorClassIdentifier: 
-  wizzardModel: {fileID: 897684996594623177, guid: 8438f0f407e4c8940a5c5ffb13d12c7c, type: 3}
+  goalPosition: {x: 4, y: 0.091, z: 4}
   monsterHealth: 100
-  monsterCarriedMoney: 30
-  monsterSpeed: 5
+  monsterCarriedMoney: 50
+  monsterSpeed: 1
+  stoppingDistance: 0.25
