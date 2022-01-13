@@ -4,6 +4,5 @@ using UnityEngine;
 
 public abstract class AbstractBuildingFactory : MonoBehaviour
 {
-    public abstract GameObject CreateBuilding();
-    public abstract void UpdateBuilding();
+    public abstract GameObject CreateBuilding(int pWantedLevel);
 }
