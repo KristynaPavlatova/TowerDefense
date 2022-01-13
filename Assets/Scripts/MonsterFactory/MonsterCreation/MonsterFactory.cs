@@ -8,7 +8,6 @@ public class MonsterFactory : AbstractEnemyFactory
     public MonsterFactory()
     {
     }
-    
     public override GameObject CreateEnemy()
     {
         if(debugOn) Debug.Log("creating monster in factory");
