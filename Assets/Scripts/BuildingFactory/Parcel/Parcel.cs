@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[RequireComponent(typeof(BoxCollider))]
 public class Parcel : MonoBehaviour, ISelectable
 {
     public bool debugOn;
     [Space(10)]
     public Transform towerSpawnPoint;
-    [Space(10)]
     [Header("Mouse selection:")]
+    [Space(10)]
     public Color selectedColor;
     private Color _originalColor;
     private Renderer _rend;
@@ -20,17 +20,15 @@ public class Parcel : MonoBehaviour, ISelectable
     //SELECTING PARCEL
     public void SelectionEnter()
     {
-        if(Input.GetKeyDown(KeyCode.N))
         _rend.materials[1].color = selectedColor;
         //display UI options for what to do with this parcel
     }
     public void SelectionExit()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-            _rend.materials[1].color = _originalColor;
+       _rend.materials[1].color = _originalColor;
     }
 
-    //BUILDING ON PARCEL
+    //BUILD ON PARCEL
     public void BuildTower()
     {
         if (_tower is null)
@@ -55,9 +53,10 @@ public class Parcel : MonoBehaviour, ISelectable
             int lastTowerLevel = _tower.GetComponent<Tower>().GetTowerLevel;
             
             //Try to upgrade the current tower
-            _tower = _buildingFactory.CreateBuilding(lastTowerLevel + 1);
-            if(_tower != null)
+            var temporaryTower = _buildingFactory.CreateBuilding(lastTowerLevel + 1);
+            if(temporaryTower != null)
             {
+                _tower = temporaryTower;
                 Destroy(this.transform.GetChild(1).gameObject);
                 Instantiate(_tower, towerSpawnPoint.position, Quaternion.identity, this.transform);
                 if (debugOn) Debug.Log($"{this.name}: Tower upgraded!");
@@ -67,7 +66,17 @@ public class Parcel : MonoBehaviour, ISelectable
         }
         else if (debugOn) Debug.Log($"{this.name}: Parcel has no tower that can be upgraded!");
     }
+    public void DestroyTower()
+    {
+        if(_tower != null)
+        {
+            Destroy(this.transform.GetChild(1).gameObject);
+            _tower = null;
+            if (debugOn) Debug.Log($"{this.name}: Tower destroyed!");
+        }else if (debugOn) Debug.Log($"{this.name}: No tower to be destroyed!");
+    }
     
+    //OTHER
     void Start()
     {
         _rend = this.GetComponent<Renderer>();
