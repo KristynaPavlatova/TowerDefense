@@ -7,28 +7,16 @@ public class TowerFactory : AbstractBuildingFactory
     public bool debugOn;
 
     //Parcel asks this fatory for a tower
-    public override GameObject CreateBuilding()
+    public override GameObject CreateBuilding(int pWantedLevel)
     {
-        if (debugOn) Debug.Log("creating tower in factory");
-        var towerObj = Resources.Load<GameObject>("Towers/Tower1");
-        if (debugOn) Debug.Log("returning tower from factory");
-        return towerObj;
-    }
+        if (debugOn) Debug.Log($"{this.name}: Creating tower in factory");
+        var towerObj = Resources.Load<GameObject>("Towers/Tower" + pWantedLevel.ToString());
 
-    public override void UpdateBuilding()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (towerObj != null)
+        {
+            if (debugOn) Debug.Log($"{this.name}: Returning lvl {pWantedLevel} tower from factory");
+            return towerObj;
+        }
+        else return null;
     }
 }
