@@ -33817,6 +33817,18 @@ PrefabInstance:
       propertyPath: debugOn
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7296146927210832854, guid: 1d9e021587c9ebb4dbaf54a353634920, type: 3}
+      propertyPath: selectedColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296146927210832854, guid: 1d9e021587c9ebb4dbaf54a353634920, type: 3}
+      propertyPath: selectedColor.g
+      value: 0.0047169924
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296146927210832854, guid: 1d9e021587c9ebb4dbaf54a353634920, type: 3}
+      propertyPath: selectedColor.r
+      value: 0.70086914
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d9e021587c9ebb4dbaf54a353634920, type: 3}
 --- !u!1001 &9208149211509206744

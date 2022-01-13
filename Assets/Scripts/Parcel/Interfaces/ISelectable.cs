@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-
 public interface ISelectable
 {
-    public void Selected();
-    public void HoverOver();
+    public void SelectionEnter();
+    public void SelectionExit();
 }
