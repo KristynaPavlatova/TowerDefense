@@ -5,5 +5,6 @@ using UnityEngine;
 
 public interface IMortal
 {
-    public void Death();
+    public void OnDeath();
+    public void TakeDamage(int pAmount);
 }

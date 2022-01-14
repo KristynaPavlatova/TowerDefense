@@ -57,6 +57,8 @@ public class MouseSelection : MonoBehaviour
             }
         }
     }
+    //Observer pattern? Since this MouseSelection only knows a selected object implements
+    //an interface but doesn't know/care about the implementation
     private void enterSelection(GameObject pObj)
     {
         if (pObj.GetComponent(typeof(ISelectable)))//Object is implementing interface
