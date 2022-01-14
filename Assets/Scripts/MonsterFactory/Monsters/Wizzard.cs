@@ -21,7 +21,7 @@ public class Wizzard : AbstractEnemy, IMortal, IMoving
         Move();
     }
 
-    public void Death()
+    public void OnDeath()
     {
         if (debugOn) Debug.Log("Wizzard died!");
     }
@@ -37,5 +37,10 @@ public class Wizzard : AbstractEnemy, IMortal, IMoving
             this.agent.isStopped = true;
             if (debugOn) Debug.Log("Wizzard reached goal destination!");
         }
+    }
+
+    public void TakeDamage(int pAmount)
+    {
+        throw new NotImplementedException();
     }
 }
