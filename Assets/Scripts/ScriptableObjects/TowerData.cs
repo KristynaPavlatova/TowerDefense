@@ -9,10 +9,13 @@ public class TowerData : ScriptableObject
     public LayerMask enemyLayerMask;
     public bool showDebugAttackLine = true;
     public Color debugColor = Color.cyan;
+    [Tooltip("To ensure detecting target leaving attack radius work correctly, give a small value. (0.3f)")]
+    public float attackRadiusToleranceValue = 0.3f;
 
     [Space(10)]
     [Tooltip("By how much will attack of a tower increase (actually bullet damage value) each new tower level.")]
     public int bulletAttackDamageLevelIncrease;
+    public float bulletSpeed;
     [Tooltip("Deley between when tower detects an enemy and actually starts firing bullets at the target.")]
     public float towerAttackDelay;
 
