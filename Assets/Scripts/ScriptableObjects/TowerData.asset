@@ -18,10 +18,12 @@ MonoBehaviour:
     m_Bits: 64
   showDebugAttackLine: 1
   debugColor: {r: 0.96055603, g: 0, b: 1, a: 1}
+  attackRadiusToleranceValue: 0.3
   bulletAttackDamageLevelIncrease: 0
+  bulletSpeed: 5
   towerAttackDelay: 0
   attackRadiusRegular: 3
-  attackFrequencyRegular: 1
+  attackFrequencyRegular: 4
   attackRadiusAreaOf: 1
   attackFrequencyAreaOf: 1
   attackRadiusDebuff: 3

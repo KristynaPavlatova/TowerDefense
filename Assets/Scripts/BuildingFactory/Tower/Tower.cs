@@ -13,6 +13,7 @@ public class Tower : MonoBehaviour
     private float _attackFrequency;
     private int _bulletDamageValue;
     [Space(10)][SerializeField] private int _currentTowerLevel;
+    [SerializeField] private Transform shootFromPoint;
 
     public enum AttackType
     {
@@ -23,6 +24,7 @@ public class Tower : MonoBehaviour
     [SerializeField] private AttackType _attackType = AttackType.Regular;
 
     private GameObject _target;
+    private bool _isCurrentlyAttacking;
 
     private void Start()
     {
@@ -65,26 +67,37 @@ public class Tower : MonoBehaviour
         _bulletDamageValue = _towerData.bulletAttackDamageLevelIncrease * _currentTowerLevel;
         if (debugOn) Debug.Log($"{this.name}: Switched attack type.");
     }
-    private void FieldOfViewCheck()
+    private bool FieldOfViewCheck()
     {
         Collider[] foundColliders = Physics.OverlapSphere(transform.position, _attackRadius, _towerData.enemyLayerMask);
         if(foundColliders.Length != 0)
         {
             _target = foundColliders[0].gameObject;
             if (debugOn) Debug.Log($"{this.name}: Found new target.");
-            startAttackingTarget();
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
-    private void Update()
+    private void FixedUpdate()
     {
         if(_target == null)
         {
-            FieldOfViewCheck();//(maybe) start shooting
+            if (FieldOfViewCheck() && !_isCurrentlyAttacking)//(maybe) start shooting
+            {
+                startAttackingTarget();
+                _isCurrentlyAttacking = true;
+            }
         }
         else
         {
             showDebugAttackLine();
-            detectTargetLeftAttackRadius();//check if should stop shooting
+            if (detectTargetLeftAttackRadius())//check if should stop shooting
+            {
+                _isCurrentlyAttacking = false;
+            }
         }
     }
 
@@ -95,46 +108,45 @@ public class Tower : MonoBehaviour
     }
     private void createAndFireBullet()
     {
-        //x get bullet obj from factory
-        //x assign bullet damage value to it
-        //bullet look at target
-        //instantiate bullet
-
-        GameObject bullet = new GameObject();
         switch (_attackType)
         {
             case AttackType.Regular:
-                bullet = _attackFactory.CreateRegularAttack();
+                GameObject bulletRegular = Instantiate(_attackFactory.CreateRegularAttack(), shootFromPoint.position, this.transform.rotation);
+                bulletRegular.GetComponent<Bullet>().targetPosition = _target.transform.position;
+                //bulletRegular.GetComponent<Bullet>().SetTargetPosition(_target.transform.position);
+                bulletRegular.GetComponent<Bullet>().SetDamageValue(_bulletDamageValue);
                 break;
             case AttackType.AreaOf:
-                bullet = _attackFactory.CreateAreaOfAttack();
+                GameObject bulletAreaOf = Instantiate(_attackFactory.CreateAreaOfAttack(), shootFromPoint.position, this.transform.rotation);
+                bulletAreaOf.GetComponent<Bullet>().SetTargetPosition(_target.transform.position);
+                bulletAreaOf.GetComponent<Bullet>().SetDamageValue(_bulletDamageValue);
                 break;
             case AttackType.Debuff:
-                bullet = _attackFactory.CreateDebuffAttack();
+                GameObject bulletDebuff = Instantiate(_attackFactory.CreateDebuffAttack(), shootFromPoint.position, this.transform.rotation);
+                bulletDebuff.GetComponent<Bullet>().SetTargetPosition(_target.transform.position);
+                bulletDebuff.GetComponent<Bullet>().SetDamageValue(_bulletDamageValue);
                 break;
         }
-        bullet.GetComponent<Bullet>().SetDamageValue(_bulletDamageValue);
-        //TO DO: FIX empty obj created with the bullet obj
-        Instantiate(bullet, this.transform.position, this.transform.rotation);
         if (debugOn) Debug.Log($"{this.name}: Shooting bullet! Pew");
     }
     private void stopAttackingTarget()
     {
         CancelInvoke("createAndFireBullet");
     }
-    private void detectTargetLeftAttackRadius()
+    private bool detectTargetLeftAttackRadius()
     {
-        if(_target != null)
+        if (_target != null)
         {
-            //TO DO: FIX, detecking the target as out of radius all the time
-            if(Vector3.Distance(this.transform.position, _target.transform.position)
-                > _attackRadius)
+            if (distanceToTarget() >= _attackRadius + _towerData.attackRadiusToleranceValue)
             {
                 if (debugOn) Debug.Log($"{this.name}: Target out of reach!");
                 _target = null;
                 stopAttackingTarget();
+                return true;
             }
+            else return false;
         }
+        else return false;
     }
 
     //OTHER:
@@ -147,5 +159,22 @@ public class Tower : MonoBehaviour
                 Debug.DrawLine(this.transform.position, _target.transform.position, _towerData.debugColor);
             }
         }
+    }
+    private Vector3 directionToTarget()
+    {
+        if (_target != null)
+        {
+            Vector3 dir = _target.transform.position - this.transform.position;
+            return dir.normalized;
+        }
+        else return Vector3.zero;
+    }
+    private float distanceToTarget()
+    {
+        if (_target != null)
+        {
+            return Vector3.Distance(this.transform.position, _target.transform.position);
+        }
+        else return 0;
     }
 }
