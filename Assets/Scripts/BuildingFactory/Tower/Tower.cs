@@ -64,7 +64,7 @@ public class Tower : MonoBehaviour
                 _attackFrequency = _towerData.attackFrequencyDebuff;
                 break;
         }
-        _bulletDamageValue = _towerData.bulletAttackDamageLevelIncrease * _currentTowerLevel;
+        _bulletDamageValue = _towerData.bulletDamageGeneral * _currentTowerLevel;
         if (debugOn) Debug.Log($"{this.name}: Switched attack type.");
     }
     private bool FieldOfViewCheck()
@@ -113,17 +113,16 @@ public class Tower : MonoBehaviour
             case AttackType.Regular:
                 GameObject bulletRegular = Instantiate(_attackFactory.CreateRegularAttack(), shootFromPoint.position, this.transform.rotation);
                 bulletRegular.GetComponent<Bullet>().targetPosition = _target.transform.position;
-                //bulletRegular.GetComponent<Bullet>().SetTargetPosition(_target.transform.position);
                 bulletRegular.GetComponent<Bullet>().SetDamageValue(_bulletDamageValue);
                 break;
             case AttackType.AreaOf:
                 GameObject bulletAreaOf = Instantiate(_attackFactory.CreateAreaOfAttack(), shootFromPoint.position, this.transform.rotation);
-                bulletAreaOf.GetComponent<Bullet>().SetTargetPosition(_target.transform.position);
+                bulletAreaOf.GetComponent<Bullet>().targetPosition = _target.transform.position;
                 bulletAreaOf.GetComponent<Bullet>().SetDamageValue(_bulletDamageValue);
                 break;
             case AttackType.Debuff:
                 GameObject bulletDebuff = Instantiate(_attackFactory.CreateDebuffAttack(), shootFromPoint.position, this.transform.rotation);
-                bulletDebuff.GetComponent<Bullet>().SetTargetPosition(_target.transform.position);
+                bulletDebuff.GetComponent<Bullet>().targetPosition = _target.transform.position;
                 bulletDebuff.GetComponent<Bullet>().SetDamageValue(_bulletDamageValue);
                 break;
         }

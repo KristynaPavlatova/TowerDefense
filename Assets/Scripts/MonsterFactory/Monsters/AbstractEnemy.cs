@@ -2,8 +2,9 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public abstract class AbstractEnemy : MonoBehaviour
+public abstract class AbstractEnemy : MonoBehaviour, IMortal
 {
+    [SerializeField]
     protected int health;
     protected int carriedMoney;
 
@@ -19,4 +20,18 @@ public abstract class AbstractEnemy : MonoBehaviour
         agent.stoppingDistance = pStoppingDistance;
     }
 
+    public void OnDeath()
+    {
+        Debug.Log($"{this.name}: DIED!");
+        Destroy(this.gameObject);
+    }
+
+    public void TakeDamage(int pAmount)
+    {
+        if (health - pAmount > 0)
+        {
+            health -= pAmount;
+        }
+        else OnDeath();
+    }
 }

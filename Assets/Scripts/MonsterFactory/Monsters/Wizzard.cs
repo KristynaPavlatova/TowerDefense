@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wizzard : AbstractEnemy, IMortal, IMoving
+public class Wizzard : AbstractEnemy, IMoving
 {
     public bool debugOn;
     [Space(10)]
@@ -20,12 +20,6 @@ public class Wizzard : AbstractEnemy, IMortal, IMoving
     {
         Move();
     }
-
-    public void OnDeath()
-    {
-        if (debugOn) Debug.Log("Wizzard died!");
-    }
-
     public void Move()
     {
         if (Vector3.Distance(this.transform.position, monsterData.goalPosition) > this.agent.stoppingDistance)
@@ -37,10 +31,5 @@ public class Wizzard : AbstractEnemy, IMortal, IMoving
             this.agent.isStopped = true;
             if (debugOn) Debug.Log("Wizzard reached goal destination!");
         }
-    }
-
-    public void TakeDamage(int pAmount)
-    {
-        throw new NotImplementedException();
     }
 }

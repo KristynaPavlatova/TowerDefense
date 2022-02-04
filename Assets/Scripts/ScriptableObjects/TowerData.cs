@@ -13,8 +13,8 @@ public class TowerData : ScriptableObject
     public float attackRadiusToleranceValue = 0.3f;
 
     [Space(10)]
-    [Tooltip("By how much will attack of a tower increase (actually bullet damage value) each new tower level.")]
-    public int bulletAttackDamageLevelIncrease;
+    [Tooltip("How much damage is any bullet dealing. finalBulletDamage = towerLevel * bulletDamageGeneral")]
+    public int bulletDamageGeneral;
     public float bulletSpeed;
     [Tooltip("Deley between when tower detects an enemy and actually starts firing bullets at the target.")]
     public float towerAttackDelay;
