@@ -15,5 +15,5 @@ MonoBehaviour:
   goalPosition: {x: 4, y: 0.091, z: 4}
   monsterHealth: 100
   monsterCarriedMoney: 50
-  monsterSpeed: 1
+  monsterSpeed: 0.5
   stoppingDistance: 0.25
