@@ -13,9 +13,7 @@ public class TowerData : ScriptableObject
     public float attackRadiusToleranceValue = 0.3f;
 
     [Space(10)]
-    [Tooltip("How much damage is any bullet dealing. finalBulletDamage = towerLevel * bulletDamageGeneral")]
-    public int bulletDamageGeneral;
-    public float bulletSpeed;
+    public float bulletSpeed;//For each attack type
     [Tooltip("Deley between when tower detects an enemy and actually starts firing bullets at the target.")]
     public float towerAttackDelay;
 
@@ -23,15 +21,17 @@ public class TowerData : ScriptableObject
     [Header("Regular attack:")]
     public float attackRadiusRegular;
     public float attackFrequencyRegular;
+    public int bulletDamageRegular;
 
     [Space(10)]
     [Header("AreaOf attack:")]
     public float attackRadiusAreaOf;
     public float attackFrequencyAreaOf;
+    public int bulletDamageAreaOf;
 
     [Space(10)]
     [Header("Debuff attack:")]
     public float attackRadiusDebuff;
     public float attackFrequencyDebuff;
-
+    public int bulletDamageDebuff;
 }
