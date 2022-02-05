@@ -54,17 +54,20 @@ public class Tower : MonoBehaviour
             case AttackType.Regular:
                 _attackRadius = _towerData.attackRadiusRegular;
                 _attackFrequency = _towerData.attackFrequencyRegular;
+                _bulletDamageValue = _towerData.bulletDamageRegular;
                 break;
             case AttackType.AreaOf:
                 _attackRadius = _towerData.attackRadiusAreaOf;
                 _attackFrequency = _towerData.attackFrequencyAreaOf;
+                _bulletDamageValue = _towerData.bulletDamageAreaOf;
                 break;
             case AttackType.Debuff:
                 _attackRadius = _towerData.attackRadiusDebuff;
                 _attackFrequency = _towerData.attackFrequencyDebuff;
+                _bulletDamageValue = _towerData.bulletDamageDebuff;
                 break;
         }
-        _bulletDamageValue = _towerData.bulletDamageGeneral * _currentTowerLevel;
+        _bulletDamageValue *= _currentTowerLevel;
         if (debugOn) Debug.Log($"{this.name}: Switched attack type.");
     }
     private bool FieldOfViewCheck()
