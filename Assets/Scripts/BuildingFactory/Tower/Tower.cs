@@ -115,18 +115,15 @@ public class Tower : MonoBehaviour
         {
             case AttackType.Regular:
                 GameObject bulletRegular = Instantiate(_attackFactory.CreateRegularAttack(), shootFromPoint.position, this.transform.rotation);
-                bulletRegular.GetComponent<Bullet>().targetPosition = _target.transform.position;
-                bulletRegular.GetComponent<Bullet>().SetDamageValue(_bulletDamageValue);
+                bulletRegular.GetComponent<BulletRegular>().targetPosition = _target.transform.position;
                 break;
             case AttackType.AreaOf:
                 GameObject bulletAreaOf = Instantiate(_attackFactory.CreateAreaOfAttack(), shootFromPoint.position, this.transform.rotation);
-                bulletAreaOf.GetComponent<Bullet>().targetPosition = _target.transform.position;
-                bulletAreaOf.GetComponent<Bullet>().SetDamageValue(_bulletDamageValue);
+                bulletAreaOf.GetComponent<BulletAreaOf>().targetPosition = _target.transform.position;
                 break;
             case AttackType.Debuff:
                 GameObject bulletDebuff = Instantiate(_attackFactory.CreateDebuffAttack(), shootFromPoint.position, this.transform.rotation);
-                bulletDebuff.GetComponent<Bullet>().targetPosition = _target.transform.position;
-                bulletDebuff.GetComponent<Bullet>().SetDamageValue(_bulletDamageValue);
+                bulletDebuff.GetComponent<BulletDebuff>().targetPosition = _target.transform.position;
                 break;
         }
         if (debugOn) Debug.Log($"{this.name}: Shooting bullet! Pew");

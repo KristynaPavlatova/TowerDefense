@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfa0b32698d1a4645b95af44258f0e95, type: 3}
-  m_Name: TowerData
+  m_Name: TowerBulletData
   m_EditorClassIdentifier: 
   enemyTag: Enemy
   enemyLayerMask:
@@ -19,12 +19,15 @@ MonoBehaviour:
   showDebugAttackLine: 1
   debugColor: {r: 0.96055603, g: 0, b: 1, a: 1}
   attackRadiusToleranceValue: 0.3
-  bulletDamageGeneral: 20
   bulletSpeed: 5
   towerAttackDelay: 0
   attackRadiusRegular: 3
   attackFrequencyRegular: 4
+  bulletDamageRegular: 20
   attackRadiusAreaOf: 2
   attackFrequencyAreaOf: 1
+  bulletDamageAreaOf: 20
+  bulletAreaOfRadius: 2
   attackRadiusDebuff: 4
   attackFrequencyDebuff: 2
+  bulletDamageDebuff: 20
