@@ -28,6 +28,7 @@ public class TowerData : ScriptableObject
     public float attackRadiusAreaOf;
     public float attackFrequencyAreaOf;
     public int bulletDamageAreaOf;
+    public float bulletAreaOfRadius;
 
     [Space(10)]
     [Header("Debuff attack:")]
