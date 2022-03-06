@@ -1,44 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 [RequireComponent(typeof(BoxCollider))]
 public class Parcel : MonoBehaviour, ISelectable
 {
     public bool debugOn;
-    [Space(10)]
-    public Transform towerSpawnPoint;
+    [Space(10)] [SerializeField] private Transform _towerSpawnPoint;
+    
     [Header("Mouse selection:")]
-    [Space(10)]
-    public Color selectedColor;
+    [Space(10)] [SerializeField] private Color _selectedColor;
     private Color _originalColor;
     private Renderer _rend;
     
+    //Tower factory
     private AbstractBuildingFactory _buildingFactory;
     private GameObject _tower;
+
+    //Building UI
+    private bool _parcelIsEmpty = true;
+    public bool isParcelEmpty => _parcelIsEmpty;
+    public delegate void ParcelSelected (GameObject parcel);//Callback signature
+    public static event ParcelSelected OnParcelSelected;//Event declaration
+
+    public delegate void ParcelUnselected();
+    public static event ParcelUnselected OnParcelUnselected;
 
     //SELECTING PARCEL
     public void SelectionEnter()
     {
-        _rend.materials[1].color = selectedColor;
-        //display UI options for what to do with this parcel
+        _rend.materials[1].color = _selectedColor;
+        if(OnParcelSelected != null)
+        OnParcelSelected(this.gameObject);//Let TowerBuildingUIManager show the according UI
+        
+        if(debugOn) Debug.Log($"{this.name}: Event OnParcelSelected");
     }
     public void SelectionExit()
     {
        _rend.materials[1].color = _originalColor;
+        OnParcelUnselected();
     }
 
     //BUILD ON PARCEL
     public void BuildTower()
     {
-        if (_tower is null)
+        if (_tower is null && _parcelIsEmpty)
         {
             if (debugOn) Debug.Log($"{this.name}: Building a new tower!");
             _buildingFactory = new TowerFactory();;
             _tower = _buildingFactory.CreateBuilding(1);//Get basic level tower
             if (_tower != null)
             {
-                Instantiate(_tower, towerSpawnPoint.position, Quaternion.identity, this.transform);
+                Instantiate(_tower, _towerSpawnPoint.position, Quaternion.identity, this.transform);
+                _parcelIsEmpty = false;
                 if (debugOn) Debug.Log($"{this.name}: New tower was build!");
             }
         }
@@ -46,7 +60,7 @@ public class Parcel : MonoBehaviour, ISelectable
     }
     public void UpgradeTower()
     {
-        if(_tower != null)
+        if(_tower != null && !_parcelIsEmpty)
         {
             if (debugOn) Debug.Log($"{this.name}: Upgrading tower!");
 
@@ -58,7 +72,7 @@ public class Parcel : MonoBehaviour, ISelectable
             {
                 _tower = temporaryTower;
                 Destroy(this.transform.GetChild(1).gameObject);
-                Instantiate(_tower, towerSpawnPoint.position, Quaternion.identity, this.transform);
+                Instantiate(_tower, _towerSpawnPoint.position, Quaternion.identity, this.transform);
                 if (debugOn) Debug.Log($"{this.name}: Tower upgraded!");
             }
             else
@@ -68,10 +82,11 @@ public class Parcel : MonoBehaviour, ISelectable
     }
     public void DestroyTower()
     {
-        if(_tower != null)
+        if(_tower != null && !_parcelIsEmpty)
         {
             Destroy(this.transform.GetChild(1).gameObject);
             _tower = null;
+            _parcelIsEmpty = true;
             if (debugOn) Debug.Log($"{this.name}: Tower destroyed!");
         }else if (debugOn) Debug.Log($"{this.name}: No tower to be destroyed!");
     }
@@ -81,8 +96,5 @@ public class Parcel : MonoBehaviour, ISelectable
     {
         _rend = this.GetComponent<Renderer>();
         _originalColor = _rend.materials[1].color;
-    }
-    void Update()
-    {
     }
 }
