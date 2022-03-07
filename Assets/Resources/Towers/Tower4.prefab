@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0f49ac043dce994c82aa314a33af859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugOn: 0
+  debugOn: 1
   _towerData: {fileID: 11400000, guid: 4b2e16022f3732343b5cf5c9950a95a4, type: 2}
   _currentTowerLevel: 4
   shootFromPoint: {fileID: 5517980923651766020}

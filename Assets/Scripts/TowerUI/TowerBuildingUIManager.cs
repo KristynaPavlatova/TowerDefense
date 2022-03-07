@@ -24,14 +24,14 @@ public class TowerBuildingUIManager : MonoBehaviour
     }
     private void showButtons(bool pBuild, bool pUpgrade, bool pDestroy)
     {
-        if (debugOn) Debug.Log($"{this.name}: ShowButtons build {pBuild}, upgrade {pUpgrade}, destroy {pDestroy}");
+        //if (debugOn) Debug.Log($"{this.name}: ShowButtons build {pBuild}, upgrade {pUpgrade}, destroy {pDestroy}");
         _buildTowerButton.SetActive(pBuild);
         _upgradeTowerButton.SetActive(pUpgrade);
         _destroyTowerButton.SetActive(pDestroy);
     }
     private void displayUI(GameObject pParcel)
     {
-        if (debugOn) Debug.Log($"{this.name}: DisplayUI for parcel {pParcel.name}");
+        //if (debugOn) Debug.Log($"{this.name}: DisplayUI for parcel {pParcel.name}");
         if(_parcel != null)
             _parcel = null;
         _parcel = pParcel.GetComponent<Parcel>();
@@ -55,6 +55,10 @@ public class TowerBuildingUIManager : MonoBehaviour
     }
 
     //BUTTON METHODS
+    //TO DO: Make a respons event queue with a resource manager.
+    //Update tower button -> towerBuildingUIManager -> resource manager ? enough money to update
+    //Yes -> towerBuildingUIManager update tower -> Parcel update tower
+    //No -> ResourceManager display UI message "Cannot afford tower update"
     public void BuildTower() => _parcel.BuildTower();
     public void UpgradeTower() => _parcel.UpgradeTower();
     public void DestroyTower() => _parcel.DestroyTower();

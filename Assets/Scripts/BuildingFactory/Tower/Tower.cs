@@ -22,17 +22,20 @@ public class Tower : MonoBehaviour
         Debuff = 2
     }
     [SerializeField] private AttackType _attackType = AttackType.Regular;
+    public AttackType getAttackType => _attackType;
 
     private GameObject _target;
     private bool _isCurrentlyAttacking;
 
-    private void Start()
+    private void Awake()
     {
         initializeTower();
     }
     public int GetTowerLevel => _currentTowerLevel;
     public void ChangeTowerAttackType(AttackType pAttackType)
     {
+        if (debugOn) Debug.Log($"{this.name}: Attack type {_attackType.ToString()} changed to {pAttackType.ToString()}.");
+
         _attackType = pAttackType;
         initializeTower();
     }
@@ -68,7 +71,7 @@ public class Tower : MonoBehaviour
                 break;
         }
         _bulletDamageValue *= _currentTowerLevel;
-        if (debugOn) Debug.Log($"{this.name}: Switched attack type.");
+        //if (debugOn) Debug.Log($"{this.name}: Switched attack type.");
     }
     private bool FieldOfViewCheck()
     {

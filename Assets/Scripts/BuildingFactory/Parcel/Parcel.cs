@@ -34,7 +34,7 @@ public class Parcel : MonoBehaviour, ISelectable
         if(OnParcelSelected != null)
         OnParcelSelected(this.gameObject);//Let TowerBuildingUIManager show the according UI
         
-        if(debugOn) Debug.Log($"{this.name}: Event OnParcelSelected");
+        //if(debugOn) Debug.Log($"{this.name}: Event OnParcelSelected");
     }
     public void SelectionExit()
     {
@@ -47,7 +47,7 @@ public class Parcel : MonoBehaviour, ISelectable
     {
         if (_tower is null && _parcelIsEmpty)
         {
-            if (debugOn) Debug.Log($"{this.name}: Building a new tower!");
+            //if (debugOn) Debug.Log($"{this.name}: Building a new tower!");
             _buildingFactory = new TowerFactory();;
             _tower = _buildingFactory.CreateBuilding(1);//Get basic level tower
             if (_tower != null)
@@ -63,7 +63,7 @@ public class Parcel : MonoBehaviour, ISelectable
     {
         if(_tower != null && !_parcelIsEmpty)
         {
-            if (debugOn) Debug.Log($"{this.name}: Upgrading tower!");
+            //if (debugOn) Debug.Log($"{this.name}: Upgrading tower!");
 
             int lastTowerLevel = _tower.GetComponent<Tower>().GetTowerLevel;
             
@@ -74,6 +74,8 @@ public class Parcel : MonoBehaviour, ISelectable
                 _tower = temporaryTower;
                 Destroy(this.transform.GetChild(1).gameObject);
                 Instantiate(_tower, _towerSpawnPoint.position, Quaternion.identity, this.transform);
+                
+                _parcelIsEmpty = false;
                 if (debugOn) Debug.Log($"{this.name}: Tower upgraded!");
             }
             else
