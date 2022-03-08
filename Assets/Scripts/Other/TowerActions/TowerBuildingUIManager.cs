@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(TowerActionEventManager))]
 public class TowerBuildingUIManager : MonoBehaviour
 {
     public bool debugOn;
@@ -12,6 +13,7 @@ public class TowerBuildingUIManager : MonoBehaviour
     [SerializeField] private GameObject _destroyTowerButton;
 
     [SerializeField] private Parcel _parcel;
+    private TowerActionEventManager _towerActionEventManager;//For sending events to get response from PlayerResourceManager
 
     private void Awake()
     {
@@ -21,6 +23,9 @@ public class TowerBuildingUIManager : MonoBehaviour
     void Start()
     {
         showButtons(false, false, false);
+
+        _towerActionEventManager = this.GetComponent<TowerActionEventManager>();
+        Debug.Assert(_towerActionEventManager, $"{this.name}: TowerActionEventManager component not found!");
     }
     private void showButtons(bool pBuild, bool pUpgrade, bool pDestroy)
     {
@@ -59,7 +64,15 @@ public class TowerBuildingUIManager : MonoBehaviour
     //Update tower button -> towerBuildingUIManager -> resource manager ? enough money to update
     //Yes -> towerBuildingUIManager update tower -> Parcel update tower
     //No -> ResourceManager display UI message "Cannot afford tower update"
-    public void BuildTower() => _parcel.BuildTower();
-    public void UpgradeTower() => _parcel.UpgradeTower();
-    public void DestroyTower() => _parcel.DestroyTower();
+    //public void BuildTower() => _parcel.BuildTower();
+    //public void UpgradeTower() => _parcel.UpgradeTower();
+    //public void DestroyTower() => _parcel.DestroyTower();
+
+    public void BuildTower() => _towerActionEventManager.sendTowerBuilding();
+    public void UpgradeTower() => _towerActionEventManager.sendTowerUpgrading();
+    public void DestroyTower()
+    {
+        _towerActionEventManager.sendTowerDestroying();
+        _parcel.DestroyTower();
+    }
 }
