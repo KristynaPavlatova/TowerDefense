@@ -17,6 +17,7 @@ public class Parcel : MonoBehaviour, ISelectable
     private AbstractBuildingFactory _buildingFactory;
     private GameObject _tower;
     public Tower GetTower => _tower.GetComponent<Tower>();
+    public int GetTowerLevel => _tower.GetComponent<Tower>().GetTowerLevel;
 
     //Building UI
     private bool _parcelIsEmpty = true;
