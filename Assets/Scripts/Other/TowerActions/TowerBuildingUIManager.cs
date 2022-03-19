@@ -68,8 +68,20 @@ public class TowerBuildingUIManager : MonoBehaviour
     //public void UpgradeTower() => _parcel.UpgradeTower();
     //public void DestroyTower() => _parcel.DestroyTower();
 
-    public void BuildTower() => _towerActionEventManager.sendTowerBuilding();
-    public void UpgradeTower() => _towerActionEventManager.sendTowerUpgrading();
+    public void BuildTower()
+    {
+        if (_towerActionEventManager.sendTowerBuilding())
+        {
+            _parcel.BuildTower();
+        }
+    }
+    public void UpgradeTower()
+    {
+        if (_towerActionEventManager.sendTowerUpgrading(_parcel.GetTowerLevel))
+        {
+            _parcel.UpgradeTower();
+        }
+    }
     public void DestroyTower()
     {
         _towerActionEventManager.sendTowerDestroying();

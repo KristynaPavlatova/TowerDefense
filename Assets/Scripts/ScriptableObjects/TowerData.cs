@@ -28,6 +28,7 @@ public class TowerData : ScriptableObject
     public float attackRadiusAreaOf;
     public float attackFrequencyAreaOf;
     public int bulletDamageAreaOf;
+
     public float bulletAreaOfRadius;
 
     [Space(10)]
@@ -35,4 +36,14 @@ public class TowerData : ScriptableObject
     public float attackRadiusDebuff;
     public float attackFrequencyDebuff;
     public int bulletDamageDebuff;
+
+    //TO DO:
+    [Space(10)]
+    [Header("Tower upgrades:")]
+    [Tooltip("Price for building a new tower.")]
+    public int towerBasePrice;
+    [Tooltip("By how much upgrading a tower costs more with each tower level? (this amount * towerLevel = upgrade cost)")]
+    public int towerUpgradeCostIncrease;
+    [Tooltip("How much gold the player gets if they desctroy level 1 tower. Higher levels will be calculated based on this amount * towerLevel = destroy tower gold return.")]
+    public int towerDestroyBaseIncrease;
 }

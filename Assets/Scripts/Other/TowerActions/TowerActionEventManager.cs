@@ -8,7 +8,7 @@ public class TowerActionEventManager : MonoBehaviour
      */
     
     //Updating
-    public delegate bool TowerUpgrading();//Callback signature
+    public delegate bool TowerUpgrading(int pTowerLevel);//Callback signature
     public static event TowerUpgrading OnTowerUpgrading;//Event declaration
     //Building
     public delegate bool TowerBuilding();//Callback signature
@@ -17,15 +17,14 @@ public class TowerActionEventManager : MonoBehaviour
     public delegate void TowerDestroying();//Callback signature
     public static event TowerDestroying OnTowerDestroying;//Event declaration
 
-    private int _id;//serves for identifying this class
-
-    private void Awake()
+    public bool sendTowerUpgrading(int pTowerLevel)
     {
-        _id = (int)Random.value;
+        return OnTowerUpgrading(pTowerLevel);
     }
-
-    public void sendTowerUpgrading() => OnTowerUpgrading();
-    public void sendTowerBuilding() => OnTowerBuilding();
+    public bool sendTowerBuilding()
+    {
+        return OnTowerBuilding();
+    }
     //Tower can get destroyed any time regardless of the current player money value
     public void sendTowerDestroying() => OnTowerDestroying();
 }
