@@ -31,3 +31,6 @@ MonoBehaviour:
   attackRadiusDebuff: 4
   attackFrequencyDebuff: 2
   bulletDamageDebuff: 20
+  towerBasePrice: 100
+  towerUpgradeCostIncrease: 50
+  towerDestroyBaseIncrease: 50
