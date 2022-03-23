@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerGold))]
 [RequireComponent(typeof(PlayerHealth))]
@@ -12,6 +13,8 @@ public class PlayerResourceManager : MonoBehaviour
     private PlayerHealth _playerHealth;
 
     [SerializeField] private TowerData _towerData;
+    [SerializeField] private Text _goldAmountChangeValueText;
+    [SerializeField] private int _secondsToDisplayValueChange;
 
     void Awake()
     {
@@ -62,8 +65,38 @@ public class PlayerResourceManager : MonoBehaviour
             return false;
         }
     }
-    private void destroyTower()
+    private void destroyTower(int pTowerLevel)
     {
         //depending on the tower level increase the player money by a value
     }
+    private void displayChangeInValue(int pValue, bool pIsIncreasing)
+    {
+        string _text;
+        if (pIsIncreasing)
+        {
+            _text = "+";
+        }
+        else
+        {
+            _text = "-";
+        }
+        _goldAmountChangeValueText.text = _text.ToString() + pValue.ToString();
+        _goldAmountChangeValueText.enabled = true;
+        //start Timer
+    }
+    //Timer UI
+    //
+    //function Update()
+    //{
+    //    timeLeft -= Time.deltaTime;
+    //    if (timeLeft < 0)
+    //    {
+    //        GameOver();
+    //    }
+    //}
+    // Bool for starting this timer
+    //inside this timer setting the UI value text off
+    //_goldAmountChangeValueText.enabled = false;
+
+
 }

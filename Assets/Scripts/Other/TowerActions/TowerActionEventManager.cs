@@ -1,5 +1,7 @@
 using UnityEngine;
 
+
+
 public class TowerActionEventManager : MonoBehaviour
 {
     /* This class is a middle step between the TowerBuildingManager,
@@ -14,8 +16,9 @@ public class TowerActionEventManager : MonoBehaviour
     public delegate bool TowerBuilding();//Callback signature
     public static event TowerBuilding OnTowerBuilding;//Event declaration
     //Destroying
-    public delegate void TowerDestroying();//Callback signature
+    public delegate void TowerDestroying(int pTowerLevel);//Callback signature
     public static event TowerDestroying OnTowerDestroying;//Event declaration
+    
 
     public bool sendTowerUpgrading(int pTowerLevel)
     {
@@ -26,5 +29,9 @@ public class TowerActionEventManager : MonoBehaviour
         return OnTowerBuilding();
     }
     //Tower can get destroyed any time regardless of the current player money value
-    public void sendTowerDestroying() => OnTowerDestroying();
+    public void sendTowerDestroying(int pTowerLevel)
+    {
+        OnTowerDestroying(pTowerLevel);
+    }
+    
 }
